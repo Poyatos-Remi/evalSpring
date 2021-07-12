@@ -1,0 +1,50 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<link rel="stylesheet" th:href="@{/resources/css/main.css}" />
+	<meta charset="utf-8">
+</head>
+
+<body>
+	<script>
+		function retour(){
+			window.location ='/item'
+		}
+		function del(id){
+			if (window.confirm('Etes-vous sur de vouloir supprimer cette entrée ?')) {
+            window.location='/item/delete/'+id;
+            }
+		}
+		function toPaiement(){
+			window.location="/paiement"
+		}
+	</script>
+	<span class="bigText" th:text="Panier"></span>
+	<table class="mainTable">
+		<thead>
+			<tr>
+				<th style="width: 30%;"><span th:text=Code></span></th>
+				<th style="width: 50%;"><span th:text=Description></span></th>
+				<th style="width: 30%;"><span th:text=Prix></span></th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="item : ${items}">
+				<td th:text="${item.codeProduit}" />
+				<td th:text="${item.description}" />
+				<td th:text="${item.prix}" />
+				<td><a th:href="'javascript:del(' + ${item.id} +');'"><img height="16" width="16"
+							th:src="@{/resources/image/delete.png}" /></a></td>
+			</tr>
+		</tbody>
+	</table>
+	<span class="bigText">Total :  <span class="bigText" th:text="${prixTotal}"></span></span>
+	<p></p>
+	<input type="button" class="button" value="Paiement" onclick="toPaiement()">&nbsp;
+	<input type="button" class="button" value="Retour" onclick="retour()">&nbsp;
+	<p />
+	<p />
+</body>
+
+</html>
